@@ -1,0 +1,24 @@
+language: cpp
+dist: trusty
+os: linux
+before_install:
+- |
+  # Installs conda
+  wget -O miniconda.sh https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
+  bash miniconda.sh -b -p $HOME/miniconda
+  export PATH="$HOME/miniconda/bin:$PATH"
+  conda config --set always_yes yes --set changeps1 no
+  conda config --add channels conda-forge
+  conda update -q conda
+install:
+- |
+  # Creates a conda environment that contains only nlohmann_json and CMake
+  conda create -c conda-forge -n hello_json nlohmann_json cmake --no-default-packages
+  # Activates this environment (puts things on PATH and configure environment variables that may be needed)
+  source activate hello_json
+  # Builds the code using CMake
+  mkdir -p build && cd build
+  cmake .. -G "Unix Makefiles"
+  cmake --build . --config Release
+script:
+- ./hello_json
