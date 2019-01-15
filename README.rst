@@ -12,8 +12,10 @@ It tests the following steps:
   # Creates a conda environment that contains only nlohmann_json and CMake
   # NOTE: `conda-forge/label/gcc7` is temporary, this will change to be only `conda-forge` very soon
   conda create -c conda-forge/label/gcc7 -n hello_json "nlohmann_json>=3.5.0" "cmake>=3.10" --no-default-packages
+  
   # Activates this environment (puts things on PATH and configure environment variables that may be needed)
   source activate hello_json
+  
   # Builds the code using CMake
   mkdir -p build && cd build
   cmake .. -G "Unix Makefiles"
